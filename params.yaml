@@ -1,0 +1,40 @@
+# Parameters for Bakery Bread Sales (Guwahati) - MP244
+# SCSE3040 MLOps Mini Project - Group G009
+
+base:
+  project_name: "mp244-bakery-bread-sales"
+  group_id: "G009"
+  problem_id: "MP244"
+  client: "Guwahati Bakers' Guild"
+  random_state: 42
+
+data:
+  raw_dir: "data/raw"
+  train_raw_path: "data/raw/train.csv"
+  later_raw_path: "data/raw/later.csv"
+  holdout_raw_path: "data/raw/holdout_features.csv"
+  processed_dir: "data/processed"
+  train_clean_path: "data/processed/train_cleaned.csv"
+  target_col: "loaves_sold"
+  id_col: "record_id"
+  date_col: "date"
+  group_col: "outlet"
+
+domain:
+  outlets:
+    - "Station Road"
+    - "Mall Road"
+    - "College Gate"
+  day_types:
+    - "weekday"
+    - "weekend"
+    - "festival"
+  feature_columns:
+    - "price_rs"
+    - "temp_c"
+    - "footfall_index"
+    - "competitor_shops"
+    - "shelf_hours"
+    - "orders_previous_day"
+    - "day_type"
+    - "outlet"
