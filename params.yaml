@@ -13,6 +13,10 @@ data:
   train_raw_path: "data/raw/train.csv"
   later_raw_path: "data/raw/later.csv"
   holdout_raw_path: "data/raw/holdout_features.csv"
+  expected_hashes:
+    train: "585f3fc02373f04b72f65dd61587d24be1b8301f2a5e0361ecf0017bffa95347"
+    later: "7d943353b0b8ccbb65d892325d353181ca5c6da4e0acb1aed2f69b56b778aa0c"
+    holdout_features: "5bf09e9ff0c99bca5a17cdf8ce93dcdadb17ca2cba44d8e00e6109f358fbd77b"
   processed_dir: "data/processed"
   train_clean_path: "data/processed/train_cleaned.csv"
   target_col: "loaves_sold"
