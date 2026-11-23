@@ -29,14 +29,12 @@ The objective of this project is to build an end-to-end production MLOps pipelin
 ---
 
 ## Current Project Stage
-- **Current Stage:** **Stage 1 --- Repository Foundation, DVC Setup & Data Investigation**
-- **Status:** **COMPLETED**
-  - Repository foundation and pinned dependencies configured.
-  - Raw training and later datasets tracked via DVC (`data/raw/*.dvc`).
-  - Empirical code for all seven data-quality checks implemented in `src/bakery_sales/data_checks.py`.
-  - All verified findings recorded in `findings.yaml` and `reports/findings.yaml`.
-  - Operational verification and reproducibility script created (`src/bakery_sales/ops_verify.py`).
-  - 18 unit tests verified passing with pytest.
+- **Current Stage:** **Stage 2 --- Data Cleaning, Model Training & MLflow Tracking**
+- **Status:** **IN PROGRESS**
+  - Stage 1 completed and verified (foundation, DVC, data checks, initial tests).
+  - Stage 2 operational verification module (`stage2_verify.py`) and configuration integration established.
+  - 35 automated tests verified passing.
+  - Awaiting Data Lead cleaning pipeline and Model Lead MLflow training runs.
 
 ---
 
@@ -59,11 +57,13 @@ The objective of this project is to build an end-to-end production MLOps pipelin
 │   └── bakery_sales/
 │       ├── __init__.py                # Package exports
 │       ├── data_checks.py             # Seven empirical data problem detectors
-│       └── ops_verify.py              # Operational integrity & verification script
+│       ├── ops_verify.py              # Operational integrity & verification script
+│       └── stage2_verify.py           # Stage 2 pipeline & MLflow verification script
 └── tests/
     ├── __init__.py                    # Test suite init
-    ├── test_data_checks.py            # Unit tests for seven data checks
-    └── test_ops_verify.py             # Unit tests for ops verification functions
+    ├── test_data_checks.py            # Unit tests for seven data checks (13 tests)
+    ├── test_ops_verify.py             # Unit tests for Stage 1 ops functions (5 tests)
+    └── test_stage2_verify.py          # Unit tests for Stage 2 validation functions (17 tests)
 ```
 
 ---
@@ -101,3 +101,31 @@ Execute all unit tests using pytest:
 PYTHONPATH=src pytest -v
 ```
 All unit tests are isolated and use synthetic mock DataFrames, ensuring full CI portability without depending on project CSV files.
+
+---
+
+## Stage 2 Reproducibility Guide (Data & Model Lead Integration)
+
+Stage 2 integrates data cleaning, MLflow experiment tracking (`sqlite:///mlflow.db`), model training, and registration.
+
+### Operational Verification Steps:
+1. **Verify Raw Data & Environment:**
+   ```bash
+   dvc status
+   python src/bakery_sales/ops_verify.py
+   ```
+
+2. **Execute Stage 2 Operational Verification:**
+   Validate configuration parameters, cleaning rules, and MLflow database status:
+   ```bash
+   python src/bakery_sales/stage2_verify.py
+   ```
+
+3. **Execute Full Test Suite (Stage 1 + Stage 2):**
+   ```bash
+   PYTHONPATH=src pytest -v
+   ```
+
+4. **Data Cleaning & Training Workflow (Under development by Data Lead & Model Lead):**
+   - Clean data generation: `python src/bakery_sales/clean.py` (generates `data/processed/train_cleaned.csv`).
+   - MLflow experiment tracking & model registration: `python src/bakery_sales/train.py` (logs runs to `sqlite:///mlflow.db` and registers `v1` with alias `@champion`).

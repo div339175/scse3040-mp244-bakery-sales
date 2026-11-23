@@ -42,3 +42,16 @@ domain:
     - "orders_previous_day"
     - "day_type"
     - "outlet"
+
+model:
+  target_col: "loaves_sold"
+  test_size: 0.2
+  random_state: 42
+  eval_metric: "mae"
+
+mlflow:
+  tracking_uri: "sqlite:///mlflow.db"
+  experiment_name: "mp244-bakery-bread-sales"
+  registered_model_name: "mp244-bread-sales-model"
+  champion_alias: "champion"
+  serialization_format: "cloudpickle"
