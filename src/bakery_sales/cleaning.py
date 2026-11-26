@@ -2,7 +2,6 @@
 """Reproducible cleaning pipeline for MP244 bakery sales."""
 
 import pandas as pd
-from streamlit import text
 
 
 TARGET_COLUMN = "loaves_sold"

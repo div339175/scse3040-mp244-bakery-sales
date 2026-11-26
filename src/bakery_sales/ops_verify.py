@@ -84,7 +84,12 @@ def verify_data_integrity(params: Dict[str, Any]) -> Tuple[bool, Dict[str, Dict[
     results = {}
     all_matched = True
 
-    for key, path in path_map.items():
+    keys_to_check = [k for k in path_map if k in expected or f"{k}_raw_path" in data_cfg]
+    if not keys_to_check:
+        keys_to_check = list(path_map.keys())
+
+    for key in keys_to_check:
+        path = path_map[key]
         exp_hash = expected.get(key)
         if not os.path.exists(path):
             results[key] = {"path": path, "status": "MISSING", "matched": False}
